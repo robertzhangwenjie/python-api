@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Version
+metadata:
+  name: fastapi
+spec:
+  selector:
+    app: fastapi
+  ports:
+  - name: http
+    port: 8000
+    targetPort: 8000
+    nodePort: 8000
+  type: NodePort
+  
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi
+  template:
+    tolerations:
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+      effect: NoSchedule
+    metadata:
+      labels:
+        app: fastapi
+    sepc: 
+      containers:
+      - name: fastapi
+        image: fastapi
+        ports:
+        - name: http
+          containerPort: 8000
+ 

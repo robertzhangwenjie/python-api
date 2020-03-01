@@ -1,0 +1,14 @@
+apiVersion: skaffold/v2alpha4
+kind: Config
+metadata:
+  name: fastapi
+build:
+  artifacts:
+  - image: fastapi
+  tagPolicy:
+    envTemplate:
+      template: "{{.IMAGE_NAME}}:v1"
+deploy:
+  kubectl:
+    manifests:
+    - deployment.yaml
