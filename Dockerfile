@@ -1,12 +1,10 @@
-FROM python:3.6.8-alpine
+FROM tiangolo/uvicorn-gunicorn:python3.7-alpine3.8  
+LABEL maintainer="Robert Zhang <robertzhangwenjie@gmail.com>"
 
-LABEL maintainer="Robert <1648855816@qq.com>"
+RUN pip install -U pip \
+  && pip install fastapi 
 
-ADD . /fastapi
 WORKDIR ./fastapi
-RUN pip install -U pip & \
-pip install fastapi && \
-pip install uvicorn
 
 EXPOSE 8000/tcp
-CMD ["/bin/sh","-c","uvicorn main:app --reload"]
+CMD ["/bin/sh","-c","uvicorn main:app --host 0.0.0.0 --reload"]
