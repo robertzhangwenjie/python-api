@@ -1,9 +1,8 @@
-FROM tiangolo/uvicorn-gunicorn:python3.7-alpine3.8  
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7
 LABEL maintainer="Robert Zhang <robertzhangwenjie@gmail.com>"
 
-RUN pip install -U pip \
-  && pip install fastapi 
 
+ADD ./src ./fastapi
 WORKDIR ./fastapi
 
 EXPOSE 8000/tcp
